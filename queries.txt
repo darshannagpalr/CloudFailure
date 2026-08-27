@@ -1,0 +1,16 @@
+sum(rate(container_cpu_usage_seconds_total{pod=~"test-app.*"}[5m])) by (pod)
+sum(container_memory_working_set_bytes{pod=~"test-app.*"}) by (pod)
+max(kube_pod_container_status_restarts_total{pod=~"test-app.*"}) by (pod)
+sum(container_oom_events_total{pod=~"test-app.*"}) by (pod)
+sum(container_pressure_cpu_waiting_seconds_total{pod=~"test-app.*"}) by (pod)
+sum(container_pressure_io_waiting_seconds_total{pod=~"test-app.*"}) by (pod)
+max(kube_pod_status_phase{pod=~"test-app.*",phase="Failed"}) by (pod)
+
+
+
+
+minikube start
+minikube dashboard
+kubectl get pods
+minikube service test-app --url
+kubectl port-forward svc/prometheus-operated -n monitoring 9090
